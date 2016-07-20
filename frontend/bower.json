@@ -1,0 +1,16 @@
+{
+  "name": "spend",
+  "description": "Spending Control",
+  "main": "index.js",
+  "authors": [
+    "Victor Novy <novyvictor@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/victornovy/spend",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-material": "^1.0.9",
+    "grunt": "^1.0.1"
+  }
+}
