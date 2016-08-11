@@ -18,36 +18,47 @@
         <md-toolbar class="md-primary">
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Menu">
-                  <md-icon md-svg-icon="img/icons/ic_menu_white_18px.svg"></md-icon>
+                    <md-icon md-svg-icon="img/icons/ic_menu_white_18px.svg"></md-icon>
                 </md-button>
                 <h2 class="md-flex">Spending Control</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" arial-label="New" ng-click="ctrl.openPopupNew($event)">
+                    <md-tooltip md-direction="button">New</md-tooltip>
+                    <md-icon md-svg-icon="img/icons/ic_add_circle_black_18px.svg"></md-icon>
+                </md-button>
             </div>
         </md-toolbar>
-        <div flex-xs flex-gt-xs="50" layout="column" ng-repeat="spend in ctrl.spends">
-          <md-card>
-            <md-card-title>
-              <md-card-title-text>
-                <span class="md-headline" ng-bind="spend.productName"></span>
-              </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                <div>Bought to: <span>{{spend.boughtTo}}</span></div>
-                <div>Pricy: <span>{{spend.pricy}}</span>
-                <div>Acquired in: <span>{{spend.acquiredIn}}</span></div>
-                <div>Expiration Day: <span>{{spend.expirationDay}}</span></div>
-                <div>Description: <span>{{spend.description}}</span></div>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="center">
-                <md-button class="md-fab md-mini md-raised" aria-label="Edit">
-                    <md-tooltip md-direction="top">Edit</md-tooltip>
-                    <md-icon md-svg-src="img/icons/ic_border_color_black_18px.svg"></md-icon>
-                </md-button>
-                <md-button class="md-fab md-mini md-raised" aria-label="Delete">
-                    <md-tooltip md-direction="top">Delete</md-tooltip>
-                    <md-icon md-svg-src="img/icons/ic_delete_black_18px.svg"></md-icon>
-                </md-button>
-            </md-card-actions>
-          </md-card>
-        </div>
+
+        <section>
+            <md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
+                <div ng-repeat="spend in spends" flex="33" flex-xs="100" flex-sm="50">
+                    <md-card>
+                      <md-card-title>
+                        <md-card-title-text>
+                          <span class="md-headline" ng-bind="spend.productName"></span>
+                        </md-card-title-text>
+                        </md-card-title>
+                        <md-card-content>
+                            <div>Bought to: <span>{{spend.boughtTo}}</span></div>
+                            <div>Pricy: <span>{{spend.pricy}}</span></div>
+                            <div>Acquired in: <span>{{spend.acquiredIn}}</span></div>
+                            <div>Type: <span>{{spend.typeOf}}</span></div>
+                            <div>Expiration Day: <span>{{spend.expirationDay}}</span></div>
+                            <div>Description: <span>{{spend.description}}</span></div>
+                        </md-card-content>
+                        <md-card-actions layout="row" layout-align="center">
+                            <md-button class="md-fab md-mini md-raised" aria-label="Edit" ng-click="ctrl.editRegister($index)">
+                                <md-tooltip md-direction="top">Edit</md-tooltip>
+                                <md-icon md-svg-src="img/icons/ic_border_color_black_18px.svg"></md-icon>
+                            </md-button>
+                            <md-button class="md-fab md-mini md-raised" aria-label="Delete">
+                                <md-tooltip md-direction="top">Delete</md-tooltip>
+                                <md-icon md-svg-src="img/icons/ic_delete_black_18px.svg"></md-icon>
+                            </md-button>
+                        </md-card-actions>
+                    </md-card>
+                </div>
+            </md-content>
+        </section>
     </body>
 </html>
