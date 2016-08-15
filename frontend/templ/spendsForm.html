@@ -1,0 +1,64 @@
+<md-dialog>
+    <md-toolbar class="md-primary md-toolbar-tools">
+        <h3>Spend</h3>
+    </md-toolbar>
+    <md-dialog-content>
+        <form layout-wrap layout="row" class="md-padding">
+            <md-input-container flex="50" flex-xs="100">
+                <label>Product</label>
+                <input type="text"
+                       ng-model="spend.productName">
+                </input>
+            </md-input-container>
+
+            <md-input-container flex="50" flex-xs="100">
+                <label>Bought to</label>
+                <input type="text"
+                       ng-model="spend.boughtTo">
+                </input>
+            </md-input-container>
+
+            <md-input-container flex="50" flex-xs="100">
+                <label>Pricy</label>
+                <input type="text"
+                    ng-model="spend.pricy">
+                </input>
+            </md-input-container>
+
+            <md-datepicker name="dateField"
+                           ng-model="spend.acquiredIn"
+                           md-placeholder="Acquired In"
+                           formatDate="YYYY-MM-DD"
+                           flex="50" flex-xs="100">
+            </md-datepicker>
+
+            <md-input-container flex="50" flex-xs="100">
+                <label>Type</label>
+                <md-select ng-model="spend.typeOf">
+                    <md-option ng-repeat="type in types"
+                               value="{{type}}"
+                               ng-bind="type">
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <md-datepicker name="dateField"
+                           ng-model="spend.expirationDay"
+                           md-placeholder="Expiration Day"
+                           formatDate="YYYY-MM-DD"
+                           flex="50" flex-xs="100">
+            </md-datepicker>
+
+            <md-input-container flex="100" class="md-block">
+                <label>Description</label>
+                <textarea ng-model="spend.description"
+                          rows="3">
+                </textarea>
+            </md-input-container>
+
+            <md-dialog-actions flex="100">
+                <md-button>Confirm</md-button>
+            </md-dialog-actions>
+        </form>
+    </md-dialog-content>
+</md-dialog>

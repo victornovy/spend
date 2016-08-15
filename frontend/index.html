@@ -2,10 +2,13 @@
 <html lang="en" ng-app="spendApp">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no">
+
         <title>Spend</title>
 
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
 
+        <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
         <script type="text/javascript" src="bower_components/angular/angular.js"></script>
         <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
         <script type="text/javascript" src="bower_components/angular-aria/angular-aria.js"></script>
@@ -41,13 +44,13 @@
                         <md-card-content>
                             <div>Bought to: <span>{{spend.boughtTo}}</span></div>
                             <div>Pricy: <span>{{spend.pricy}}</span></div>
-                            <div>Acquired in: <span>{{spend.acquiredIn}}</span></div>
+                            <div>Acquired in: <span>{{spend.acquiredIn | date:'dd/MM/yyyy'}}</span></div>
                             <div>Type: <span>{{spend.typeOf}}</span></div>
-                            <div>Expiration Day: <span>{{spend.expirationDay}}</span></div>
+                            <div>Expiration Day: <span>{{spend.expirationDay | date:'dd/MM/yyyy'}}</span></div>
                             <div>Description: <span>{{spend.description}}</span></div>
                         </md-card-content>
                         <md-card-actions layout="row" layout-align="center">
-                            <md-button class="md-fab md-mini md-raised" aria-label="Edit" ng-click="ctrl.editRegister($index)">
+                            <md-button class="md-fab md-mini md-raised" aria-label="Edit" ng-click="ctrl.editRegister($event, $index)">
                                 <md-tooltip md-direction="top">Edit</md-tooltip>
                                 <md-icon md-svg-src="img/icons/ic_border_color_black_18px.svg"></md-icon>
                             </md-button>
