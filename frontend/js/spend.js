@@ -58,18 +58,25 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
             templateUrl: 'templ/spendsForm.html',
             controllerAs: "ctrl",
             bindToController: true,
-            controller: function DialogController($scope, scopeParent) {
-               $scope.spend = scopeParent.currentSpend;
-               $scope.types = ['Credit', 'Debit'];
+            controller: function DialogController($scope, $mdDialog, spendService) {
+                $scope.types = ['Credit', 'Debit'];
+                $scope.spend = this.scopeParent.currentSpend;
+
+                this.saveSpend = function() {
+                    var currentSpend = $scope.spend;
+                    spendService.saveSpend(currentSpend);
+                    $mdDialog.hide();
+                };
             },
             locals: {
-                scopeParent: $scope
+                scopeParent: $scope,
+                spendService: spendService
             }
         });
     };
 
     self.openPopupNew = function(event) {
-        delete $scope.currentSpend;
+        $scope.currentSpend = {};
         openPopup(event);
     };
 
@@ -88,8 +95,8 @@ spendApp.factory('SpendService', [function() {
             "boughtTo": "Victor Novy",
             "productName": "Book",
             "pricy": 49.99,
-            "acquiredIn": new Date("2016-07-01"),
-            "expirationDay": new Date("2016-07-17"),
+            "acquiredIn": new Date("07-01-2016"),
+            "expirationDay": new Date("07-17-2016"),
             "typeOf": "Credit",
             "description": "test test test test test"
         },
@@ -99,8 +106,8 @@ spendApp.factory('SpendService', [function() {
             "boughtTo": "Victor Novy",
             "productName": "Phone",
             "pricy": 9.99,
-            "acquiredIn": new Date("2016-07-01"),
-            "expirationDay": new Date("2016-07-17"),
+            "acquiredIn": new Date("07-01-2016"),
+            "expirationDay": new Date("07-17-2016"),
             "typeOf": "Debit",
             "description": "Phone test"
         },
@@ -110,8 +117,8 @@ spendApp.factory('SpendService', [function() {
             "boughtTo": "Victor Novy",
             "productName": "Colomn",
             "pricy": 60.00,
-            "acquiredIn": new Date("2016-07-06"),
-            "expirationDay": new Date("2016-07-06"),
+            "acquiredIn": new Date("07-06-2016"),
+            "expirationDay": new Date("07-06-2016"),
             "typeOf": "Debit",
             "description": "Phone test"
         },
@@ -121,14 +128,30 @@ spendApp.factory('SpendService', [function() {
             "boughtTo": "Victor Novy",
             "productName": "Hair",
             "pricy": 15.00,
-            "acquiredIn": new Date("2016-07-10"),
-            "expirationDay": new Date("2016-07-06"),
+            "acquiredIn": new Date("07-10-2016"),
+            "expirationDay": new Date("07-06-2016"),
             "typeOf": "Debit",
             "description": "Phone test"
         }
     ];
 
+    var saveSpend = function(spend) {
+        if ('id' in spend)
+            return editSpend(spend);
+        return addSpend(spend);
+    };
+
+    var addSpend = function(spend) {
+        spend.id = Math.floor((Math.random() * 10000));
+        spends.push(spend);
+    };
+
+    var editSpend = function(spend) {
+
+    };
+
     return {
-        getSpends: spends
+        getSpends: spends,
+        saveSpend: saveSpend
     }
 }]);
