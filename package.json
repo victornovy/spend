@@ -2,11 +2,11 @@
   "name": "spend",
   "version": "1.0.0",
   "description": "Spending Control",
-  "main": "index.js",
+  "main": "./bin/www",
   "scripts": {
-    "start": "node app.js",
+    "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "nodemon": "nodemon app.js"
+    "nodemon": "nodemon ./bin/www"
   },
   "repository": {
     "type": "git",

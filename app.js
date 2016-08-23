@@ -11,11 +11,10 @@ app.use(methodOverride('_method'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded( {extended: true} ));
 
-app.get('/', function(req, res) {
-    res.status(200);
-    res.send({'id': 123, 'name': 'Test'});
-});
+//routes
+app.use('/', require('./routes'));
 
+//error handlig
 app.use(function(req, res, next) {
     var error = new Error('Not Found');
     error.status = 404;
@@ -27,8 +26,5 @@ app.use(function(error, req, res, next) {
     res.status(error.status || 500).json({ error: error.message });
 });
 
-var server = app.listen(3000, function() {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log('example app listening at http://%s:%s', host, port);
-});
+//server listener
+module.exports = app;
