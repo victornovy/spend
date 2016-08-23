@@ -5,11 +5,22 @@ var express = require('express'),
 var app = express();
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlEncoded( {extended: true} ));
+app.use(bodyParser.urlencoded( {extended: true} ));
 
 app.get('/', function(req, res) {
     res.status(200);
-    res.send('Hello world');
+    res.send({'id': 123, 'name': 'Test'});
+});
+
+app.use(function(req, res, next) {
+    var error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+});
+
+app.use(function(error, req, res, next) {
+    console.log(error.stack);
+    res.status(error.status || 500).json({ error: error.message });
 });
 
 var server = app.listen(3000, function() {
