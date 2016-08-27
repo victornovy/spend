@@ -22,7 +22,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(error, req, res, next) {
-    console.log(error.stack);
+    console.log(`### ERRO ### \n ${error.stack}`);
     res.status(error.status || 500).json({ error: error.message });
 });
 

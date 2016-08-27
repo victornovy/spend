@@ -1,24 +1,15 @@
 var express = require('express'),
-    router = express.Router();
+    router = express.Router(),
+    spendController = require('../controllers/SpendController');
 
-router.get('/', function(req, res) {
-    res.send('get all spens');
-});
+router.get('/', spendController.getAll);
 
-router.get('/:_id', function(req, res) {
-    res.send('get a specific spend by id');
-});
+router.get('/:_id', spendController.getById);
 
-router.post('/', function(req, res) {
-    res.send('create a new spend');
-});
+router.post('/', spendController.create);
 
-router.put('/:_id', function(req, res) {
-    res.send('update a spend');
-});
+router.put('/:_id', spendController.update);
 
-router.delete('/:_id', function(req, res) {
-    res.send('delete a spend');
-});
+router.delete('/:_id', spendController.remove);
 
 module.exports = router;
