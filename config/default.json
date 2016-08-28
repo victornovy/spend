@@ -4,6 +4,6 @@
         "password": "",
         "server": "localhost",
         "port": 27017,
-        "database": "spends"
+        "database": "novytech"
     }
 }
