@@ -1,6 +1,6 @@
 var mongojs = require('mongojs'),
     config = require('config'),
-    debug = require('debug')('libro_nodejs:db');
+    debug = require('debug')('spend:db');
 
 function _connection() {
     var username = config.get('mongo.username'),
