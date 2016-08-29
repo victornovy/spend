@@ -1,15 +1,17 @@
 var express = require('express'),
     router = express.Router(),
-    spendController = require('../controllers/SpendController');
+    mongo = require('../db/mongo'),
+    spendModel = require('../models/SpendModel')(mongo),
+    spendController = require('../controllers/SpendController')(spendModel);
 
-router.get('/', spendController.getAll);
+router.get('/', spendController.getAll.bind(spendController));
 
-router.get('/:_id', spendController.getById);
+router.get('/:_id', spendController.getById.bind(spendController));
 
-router.post('/', spendController.create);
+router.post('/', spendController.create.bind(spendController));
 
-router.put('/:_id', spendController.update);
+router.put('/:_id', spendController.update.bind(spendController));
 
-router.delete('/:_id', spendController.remove);
+router.delete('/:_id', spendController.remove.bind(spendController));
 
 module.exports = router;

@@ -7,13 +7,13 @@ function _connection() {
         password = config.get('mongo.password'),
         server   = config.get('mongo.server'),
         port     = config.get('mongo.port'),
-        databse  = config.get('mongo.databse'),
+        databse  = config.get('mongo.database'),
         auth     = !!username ? `${username} : ${password}` : '';
 
     return `mongodb://${auth}${server}:${port}/${databse}`;
 }
 
-var db = mongojs(_connection);
+var db = mongojs(_connection());
 db.on('error', function(err) {
     debug(err);
 });
