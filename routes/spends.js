@@ -1,7 +1,7 @@
 var express = require('express'),
     router = express.Router(),
-    mongo = require('../db/mongo'),
-    spendModel = require('../models/SpendModel')(mongo),
+    mongoose = require('../db/mongoose'),
+    spendModel = require('../models/SpendModel')(mongoose),
     spendController = require('../controllers/SpendController')(spendModel);
 
 router.get('/', spendController.getAll.bind(spendController));

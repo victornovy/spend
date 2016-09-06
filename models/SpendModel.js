@@ -1,31 +1,40 @@
-function SpendModel(mongo) {
-    this.mongo = mongo;
-    this.spendCollection = this.mongo.collection('spends');
+function SpendDAO(model) {
+    this.model = model
 };
 
-SpendModel.prototype.find = function(query, callback) {
-    this.spendCollection.find(query, callback);
+SpendDAO.prototype.find = function(query, callback) {
+    this.model.find(query).exec(callback);
 };
 
-SpendModel.prototype.findOne = function(_id, callback) {
+SpendDAO.prototype.findOne = function(_id, callback) {
     var query = {_id: this.mongo.ObjectId(_id)};
-    this.spendCollection.findOne(query, callback)
+    this.model.find(query).exec(callback);
 };
 
-SpendModel.prototype.create = function(data, callback) {
-    this.spendCollection.insert(data, callback);
+SpendDAO.prototype.create = function(data, callback) {
+    var model = new this.model(data);
+    model.save(function(err, result){
+        callback(err, result);
+    });
 };
 
-SpendModel.prototype.update = function(_id, data, callback) {
+SpendDAO.prototype.update = function(_id, data, callback) {
     var query = {_id: this.mongo.ObjectId(_id)};
-    this.spendCollection.update(query, data, callback);
+    this.model.update(query, data).exec(function(err, result) {
+        callback(err, result);
+    });
 };
 
-SpendModel.prototype.remove = function(_id, callback) {
+SpendDAO.prototype.remove = function(_id, callback) {
     var query = {_id: this.mongo.ObjectId(_id)};
-    this.spendCollection.remove(query, callback);
+    this.model.remove(query).exec(function(err, result) {
+        callback(err, result);
+    });
 };
 
-module.exports = function(mongo) {
-    return new SpendModel(mongo);
+module.exports = function(mongoose) {
+    var spend - mongoose.model('Spend', {
+        name: String
+    });
+    return new SpendDAO(spend);
 };
