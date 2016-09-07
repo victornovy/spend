@@ -10,7 +10,7 @@ SpendDAO.prototype.find = function(query, callback) {
 
 SpendDAO.prototype.findOne = function(id, callback) {
     var query = {_id: id};
-    this.model.find(query).exec(callback);
+    this.model.findOne(query).exec(callback);
 };
 
 SpendDAO.prototype.create = function(data, callback) {
