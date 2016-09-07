@@ -1,4 +1,4 @@
-var debug = require('debug')('spend:controller');
+var debug = require('debug')('spend:controller'),
     Promise = require('bluebird');
 
 var handleNotFound = function(data) {

@@ -1,3 +1,5 @@
+var debug = require('debug')('spend:model');
+
 function SpendDAO(model) {
     this.model = model
 };
@@ -6,8 +8,8 @@ SpendDAO.prototype.find = function(query, callback) {
     this.model.find(query).exec(callback);
 };
 
-SpendDAO.prototype.findOne = function(_id, callback) {
-    var query = {_id: this.mongo.ObjectId(_id)};
+SpendDAO.prototype.findOne = function(id, callback) {
+    var query = {_id: id};
     this.model.find(query).exec(callback);
 };
 
@@ -18,15 +20,15 @@ SpendDAO.prototype.create = function(data, callback) {
     });
 };
 
-SpendDAO.prototype.update = function(_id, data, callback) {
-    var query = {_id: this.mongo.ObjectId(_id)};
+SpendDAO.prototype.update = function(id, data, callback) {
+    var query = {_id: id};
     this.model.update(query, data).exec(function(err, result) {
         callback(err, result);
     });
 };
 
-SpendDAO.prototype.remove = function(_id, callback) {
-    var query = {_id: this.mongo.ObjectId(_id)};
+SpendDAO.prototype.remove = function(id, callback) {
+    var query = {_id: id};
     this.model.remove(query).exec(function(err, result) {
         callback(err, result);
     });
