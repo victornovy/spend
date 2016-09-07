@@ -3,7 +3,7 @@ function SpendDAO(model) {
 };
 
 SpendDAO.prototype.find = function(query, callback) {
-    this.model.find(query).exec(callback);
+    this.model.find(query).exec().then(callback);
 };
 
 SpendDAO.prototype.findOne = function(_id, callback) {
@@ -33,7 +33,7 @@ SpendDAO.prototype.remove = function(_id, callback) {
 };
 
 module.exports = function(mongoose) {
-    var spend - mongoose.model('Spend', {
+    var spend = mongoose.model('spends', {
         name: String
     });
     return new SpendDAO(spend);

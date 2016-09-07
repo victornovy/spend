@@ -6,6 +6,7 @@ function SpendController(spendModel) {
 
 SpendController.prototype.getAll = function(request, response, next) {
     this.model.find({}, function(err, data) {
+        debug(err);
         if (err)
             return next(err);
         reponse.json(data);
