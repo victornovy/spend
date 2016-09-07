@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     config = require('config'),
-    debug = require('debug')('spend:db');
+    debug = require('debug')('spend:db'),
+    Promise = require('bluebird');
 
 function _connection() {
     var username = config.get('mongo.username'),
@@ -14,6 +15,7 @@ function _connection() {
 }
 
 mongoose.connect(_connection());
+mongoose.Promise = Promise;
 
 var db = mongoose.connection;
 

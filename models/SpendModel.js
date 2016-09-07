@@ -3,7 +3,7 @@ function SpendDAO(model) {
 };
 
 SpendDAO.prototype.find = function(query, callback) {
-    this.model.find(query).exec().then(callback);
+    this.model.find(query).exec(callback);
 };
 
 SpendDAO.prototype.findOne = function(_id, callback) {

@@ -1,53 +1,64 @@
 var debug = require('debug')('spend:controller');
+    Promise = require('bluebird');
+
+var handleNotFound = function(data) {
+    if (data)
+        return data;
+
+    var err = new Error('Not Found');
+    err.status = 404;
+    throw err;
+}
 
 function SpendController(spendModel) {
-    this.model = spendModel;
+    this.model = Promise.promisifyAll(spendModel);
 };
 
 SpendController.prototype.getAll = function(request, response, next) {
-    this.model.find({}, function(err, data) {
-        debug(err);
-        if (err)
-            return next(err);
-        reponse.json(data);
-    });
+    this.model.findAsync({})
+        .then(function(data) {
+            response.json(data);
+        })
+        .catch(next);
 };
 
 SpendController.prototype.getById = function(request, response, next) {
     var _id = request.params._id;
-    this.model.findOne(_id, function(err, data) {
-        if (err)
-            return next(err);
-        response.json(data);
-    });
+    this.model.findOneAsync(_id)
+        .then(handleNotFound)
+        .then(function(data) {
+            response.json(data);
+        })
+        .catch(next);
 };
 
 SpendController.prototype.create = function(request, response, next) {
     var body = request.body;
-    this.model.create(body, function(err, data) {
-        if (err)
-            return next(err);
-        response.json(data);
-    });
+    this.model.createAsync(body)
+        .then(function(data) {
+            response.json(data);
+        })
+        .catch(next);
 };
 
 SpendController.prototype.update = function(request, response, next) {
     var _id = request.params._id,
         body = request.body;
-    this.model.findOne(_id, body, function(err, data) {
-        if (err)
-            return next(err);
-        response.json(data);
-    });
+    this.model.updateAsync(_id, body)
+        .then(function(data) {
+            response.json(data);
+        })
+        .catch(next);
 };
 
 SpendController.prototype.remove = function(request, response, next) {
     var _id = request.params._id;
-    this.model.remove(_id, function(err, data) {
-        if (err)
-            return next(err);
-        response.json(data);
-    });
+    this.model.removeAsync(_id)
+        .then(handleNotFound)
+        .then(function(data) {
+            response.json(data);
+        })
+        .catch(next);
 };
 
 module.exports = function(spendModel) {
