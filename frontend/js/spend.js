@@ -48,7 +48,11 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
 
     var self = this;
 
-    $scope.spends = spendService.getSpends;
+    $scope.spends = [];
+
+    spendService.getSpends().then(function(response) {
+        $scope.spends = response.data;
+    });
 
     var openPopup = function(event) {
         $mdDialog.show({
@@ -64,8 +68,11 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
 
                 this.saveSpend = function() {
                     var currentSpend = $scope.spend;
-                    spendService.saveSpend(currentSpend);
-                    $mdDialog.hide();
+                    spendService.saveSpend(currentSpend).then(function() {
+                        $mdDialog.hide();
+                    }, function(error) {
+                        console.log('error', error);
+                    });
                 };
             },
             locals: {
@@ -85,9 +92,17 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
         openPopup(event);
     };
 
+    self.removeRegister = function(event, index) {
+        var currentSpend = $scope.spends[index];
+        spendService.removeSpend(currentSpend).then(function() {
+            $scope.spends.splice(index, 1);
+        }, function(error) {
+            console.log('error', error);
+        });
+    }
 }]);
 
-spendApp.factory('SpendService', [function() {
+spendApp.factory('SpendService', ['$http', function($http) {
     var spends = [
         {
             "id": 123,
@@ -135,23 +150,31 @@ spendApp.factory('SpendService', [function() {
         }
     ];
 
+    var getSpends = function() {
+        return $http.get('/spends');
+    };
+
     var saveSpend = function(spend) {
-        if ('id' in spend)
+        if ('_id' in spend)
             return editSpend(spend);
         return addSpend(spend);
     };
 
     var addSpend = function(spend) {
-        spend.id = Math.floor((Math.random() * 10000));
-        spends.push(spend);
+        return $http.post('/spends', spend);
     };
 
     var editSpend = function(spend) {
+        return $http.put(`/spends/${spend._id}`, spend);
+    };
 
+    var removeSpend = function(spend) {
+        return $http.delete(`/spends/${spend._id}`, spend);
     };
 
     return {
-        getSpends: spends,
-        saveSpend: saveSpend
+        getSpends: getSpends,
+        saveSpend: saveSpend,
+        removeSpend: removeSpend
     }
 }]);

@@ -35,8 +35,45 @@ SpendDAO.prototype.remove = function(id, callback) {
 };
 
 module.exports = function(mongoose) {
+    var validateTypeOfProduct = function(type) {
+        return type === 'Credit' || type === 'Debit';
+    }
+
     var spend = mongoose.model('spends', {
-        name: String
+        userId: {
+            type: Number,
+            required: true,
+            default: 1
+        },
+        boughtTo: {
+            type: String,
+            required: false
+        },
+        productName: {
+            type: String,
+            required: true
+        },
+        pricy: {
+            type: Number,
+            required: true
+        },
+        acquiredIn: {
+            type: Date,
+            required: true
+        },
+        expirationDay: {
+            type: Date,
+            required: false
+        },
+        typeOf: {
+            type: String,
+            required: true,
+            validate: [validateTypeOfProduct, 'Invalid type of spend.']
+        },
+        description: {
+            type: String,
+            required: false
+        }
     });
     return new SpendDAO(spend);
 };
