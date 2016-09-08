@@ -66,6 +66,16 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
                 $scope.types = ['Credit', 'Debit'];
                 $scope.spend = this.scopeParent.currentSpend;
 
+                $scope.$watch('scope.spend', function(newValue, oldValue, scope) {
+                    var acquiredIn = scope.spend.acquiredIn;
+                    var expirationDay = scope.spend.expirationDay;
+                    var acquiredInIsString = typeof acquiredIn === 'string';
+                    var expirationDayIsString = typeof expirationDay === 'string';
+
+                    scope.spend.acquiredIn = acquiredInIsString ? new Date(acquiredIn) : acquiredIn;
+                    scope.spend.expirationDay = expirationDayIsString ? new Date(expirationDay) : expirationDay;
+                });
+
                 this.saveSpend = function() {
                     var currentSpend = $scope.spend;
                     var errorCallback = function(error) {
@@ -112,53 +122,6 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
 }]);
 
 spendApp.factory('SpendService', ['$http', function($http) {
-    var spends = [
-        {
-            "id": 123,
-            "userId": 123,
-            "boughtTo": "Victor Novy",
-            "productName": "Book",
-            "pricy": 49.99,
-            "acquiredIn": new Date("07-01-2016"),
-            "expirationDay": new Date("07-17-2016"),
-            "typeOf": "Credit",
-            "description": "test test test test test"
-        },
-        {
-            "id": 1234,
-            "userId": 1234,
-            "boughtTo": "Victor Novy",
-            "productName": "Phone",
-            "pricy": 9.99,
-            "acquiredIn": new Date("07-01-2016"),
-            "expirationDay": new Date("07-17-2016"),
-            "typeOf": "Debit",
-            "description": "Phone test"
-        },
-        {
-            "id": 12345,
-            "userId": 12345,
-            "boughtTo": "Victor Novy",
-            "productName": "Colomn",
-            "pricy": 60.00,
-            "acquiredIn": new Date("07-06-2016"),
-            "expirationDay": new Date("07-06-2016"),
-            "typeOf": "Debit",
-            "description": "Phone test"
-        },
-        {
-            "id": 123456,
-            "userId": 123456,
-            "boughtTo": "Victor Novy",
-            "productName": "Hair",
-            "pricy": 15.00,
-            "acquiredIn": new Date("07-10-2016"),
-            "expirationDay": new Date("07-06-2016"),
-            "typeOf": "Debit",
-            "description": "Phone test"
-        }
-    ];
-
     var getSpends = function() {
         return $http.get('/spends');
     };
