@@ -68,11 +68,20 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
 
                 this.saveSpend = function() {
                     var currentSpend = $scope.spend;
-                    spendService.saveSpend(currentSpend).then(function() {
-                        $mdDialog.hide();
-                    }, function(error) {
+                    var errorCallback = function(error) {
                         console.log('error', error);
-                    });
+                    };
+
+                    if ('_id' in currentSpend) {
+                        return spendService.editSpend(currentSpend).then(function(editSpend) {
+                            $mdDialog.hide();
+                        }.bind(this), errorCallback);
+                    }
+
+                    return spendService.addSpend(currentSpend).then(function(newSpend) {
+                        this.scopeParent.spends.push(newSpend.data);
+                        $mdDialog.hide();
+                    }.bind(this), errorCallback);
                 };
             },
             locals: {
@@ -175,6 +184,8 @@ spendApp.factory('SpendService', ['$http', function($http) {
     return {
         getSpends: getSpends,
         saveSpend: saveSpend,
+        addSpend: addSpend,
+        editSpend: editSpend,
         removeSpend: removeSpend
     }
 }]);
