@@ -1,6 +1,10 @@
 <md-dialog>
     <md-toolbar class="md-primary md-toolbar-tools">
         <h3>Spend</h3>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="ctrl.cancel()">
+          <md-icon md-svg-src="img/icons/ic_close_white_16px.svg" aria-label="Close dialog"></md-icon>
+        </md-button>
     </md-toolbar>
     <md-dialog-content>
         <form layout-wrap layout="row" class="md-padding">
@@ -20,17 +24,18 @@
 
             <md-input-container flex="50" flex-xs="100">
                 <label>Pricy</label>
-                <input type="text"
+                <input type="number"
+                    step="0.01"
                     ng-model="spend.pricy">
                 </input>
             </md-input-container>
 
-            <md-datepicker name="dateField"
-                           ng-model="spend.acquiredIn"
-                           md-placeholder="Acquired In"
-                           formatDate="YYYY-MM-DD"
-                           flex="50" flex-xs="100">
-            </md-datepicker>
+            <md-input-container flex="50" flex-xs="100">
+              <label>Acquired In</label>
+              <md-datepicker name="dateField"
+                             ng-model="spend.acquiredIn">
+              </md-datepicker>
+            </md-input-container>
 
             <md-input-container flex="50" flex-xs="100">
                 <label>Type</label>
@@ -42,18 +47,16 @@
                 </md-select>
             </md-input-container>
 
-            <md-datepicker name="dateField"
-                           ng-model="spend.expirationDay"
-                           md-placeholder="Expiration Day"
-                           formatDate="YYYY-MM-DD"
-                           flex="50" flex-xs="100">
-            </md-datepicker>
+            <md-input-container flex="50" flex-xs="100">
+              <label>Expiration Day</label>
+              <md-datepicker name="dateField"
+                             ng-model="spend.expirationDay">
+              </md-datepicker>
+            </md-input-container>
 
             <md-input-container flex="100" class="md-block">
                 <label>Description</label>
-                <textarea ng-model="spend.description"
-                          rows="3">
-                </textarea>
+                <textarea ng-model="spend.description"></textarea>
             </md-input-container>
 
             <md-dialog-actions flex="100">

@@ -76,6 +76,10 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
                     scope.spend.expirationDay = expirationDayIsString ? new Date(expirationDay) : expirationDay;
                 });
 
+                this.cancel = function() {
+                    $mdDialog.cancel();
+                }
+
                 this.saveSpend = function() {
                     var currentSpend = $scope.spend;
                     var errorCallback = function(error) {
@@ -102,7 +106,10 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
     };
 
     self.openPopupNew = function(event) {
-        $scope.currentSpend = {};
+        $scope.currentSpend = {
+            acquiredIn: new Date(),
+            expirationDay: new Date()
+        };
         openPopup(event);
     };
 
