@@ -119,11 +119,21 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
     };
 
     self.removeRegister = function(event, index) {
-        var currentSpend = $scope.spends[index];
-        spendService.removeSpend(currentSpend).then(function() {
-            $scope.spends.splice(index, 1);
-        }, function(error) {
-            console.log('error', error);
+
+        var confirm = $mdDialog.confirm()
+          .title('Remove')
+          .textContent('Would you like to remove this register?')
+          .targetEvent(event)
+          .ok('Confirm')
+          .cancel('Cancel');
+
+        $mdDialog.show(confirm).then(function() {
+            var currentSpend = $scope.spends[index];
+            spendService.removeSpend(currentSpend).then(function() {
+                $scope.spends.splice(index, 1);
+            }, function(error) {
+                console.log('error', error);
+            });
         });
     }
 }]);
