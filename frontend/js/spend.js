@@ -42,7 +42,7 @@ var momentBr = {
 };
 //moment.defineLocale('pt-br', momentBr);
 
-var spendApp = angular.module('spendApp', ['ngMaterial']);
+var spendApp = angular.module('spendApp', ['ngMaterial', 'ngMessages']);
 
 spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function($scope, spendService, $mdDialog) {
 
@@ -80,7 +80,10 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
                     $mdDialog.cancel();
                 }
 
-                this.saveSpend = function() {
+                this.saveSpend = function(invalid) {
+                    if (invalid)
+                        return;
+
                     var currentSpend = $scope.spend;
                     var errorCallback = function(error) {
                         console.log('error', error);
