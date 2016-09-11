@@ -43,7 +43,7 @@
                         </md-card-title>
                         <md-card-content>
                             <div>Bought to: <span>{{spend.boughtTo}}</span></div>
-                            <div>Pricy: <span>{{spend.pricy}}</span></div>
+                            <div>Pricy: <span>{{spend.pricy | currency: '' : 2}}</span></div>
                             <div>Acquired in: <span>{{spend.acquiredIn | date:'MM/dd/yyyy'}}</span></div>
                             <div>Type: <span>{{spend.typeOf}}</span></div>
                             <div>Expiration Day: <span>{{spend.expirationDay | date:'MM/dd/yyyy'}}</span></div>

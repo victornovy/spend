@@ -110,8 +110,7 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
 
     self.openPopupNew = function(event) {
         $scope.currentSpend = {
-            acquiredIn: new Date(),
-            expirationDay: new Date()
+            acquiredIn: new Date()
         };
         openPopup(event);
     };
@@ -172,3 +171,9 @@ spendApp.factory('SpendService', ['$http', function($http) {
         removeSpend: removeSpend
     }
 }]);
+
+spendApp.config(function($mdDateLocaleProvider) {
+    $mdDateLocaleProvider.formatDate = function(date) {
+       return moment(date).format('MM/DD/YYYY');
+    };
+});
