@@ -63,6 +63,10 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
             controllerAs: "ctrl",
             bindToController: true,
             controller: function DialogController($scope, $mdDialog, spendService) {
+                var getTitle = function(id) {
+                    return !id ? 'New Spend' : 'Edit Spend';
+                };
+
                 $scope.types = ['Credit', 'Debit'];
                 $scope.spend = this.scopeParent.currentSpend;
 
@@ -75,6 +79,8 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
                     scope.spend.acquiredIn = acquiredInIsString ? new Date(acquiredIn) : acquiredIn;
                     scope.spend.expirationDay = expirationDayIsString ? new Date(expirationDay) : expirationDay;
                 });
+
+                this.title = getTitle($scope.spend._id);
 
                 this.cancel = function() {
                     $mdDialog.cancel();
