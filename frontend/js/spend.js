@@ -110,7 +110,8 @@ spendApp.controller('MainCtrl', ['$scope', 'SpendService', '$mdDialog', function
             locals: {
                 scopeParent: $scope,
                 spendService: spendService
-            }
+            },
+            fullscreen: true
         });
     };
 
