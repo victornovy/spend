@@ -7,6 +7,7 @@
         <title>Spend</title>
 
         <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+        <link rel="stylesheet" href="css/spend.css">
 
         <script type="text/javascript" src="bower_components/moment/min/moment.min.js"></script>
         <script type="text/javascript" src="bower_components/angular/angular.js"></script>
@@ -18,7 +19,7 @@
         <script type="text/javascript" src="js/spend.js"></script>
     </head>
     <body ng-controller="MainCtrl as ctrl">
-        <md-toolbar class="md-primary">
+        <md-toolbar class="md-primary" id="toolbar">
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Menu">
                     <md-icon md-svg-icon="img/icons/ic_menu_white_18px.svg"></md-icon>
@@ -32,7 +33,7 @@
             </div>
         </md-toolbar>
 
-        <section>
+        <section id="spends">
             <md-content class="md-padding" layout-xs="column" layout="row" layout-wrap>
                 <div ng-repeat="spend in spends" flex="33" flex-xs="100" flex-sm="50">
                     <md-card>

@@ -1,0 +1,11 @@
+#spends {
+    padding-top: 50px;
+}
+
+#toolbar {
+    position: fixed;
+}
+
+.md-button.md-fab {
+    z-index: 1;
+}
